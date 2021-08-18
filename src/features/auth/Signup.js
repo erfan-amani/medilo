@@ -17,10 +17,12 @@ const Signup = () => {
         </h2>
         <p className="text-gray-700">create an account</p>
       </div>
-      <div className="space-y-2 w-full">
+      <div className="flex flex-col gap-2 w-full">
         <GoogleButton />
         <FacebookButton />
-        <EmailButton />
+        <Link to="/signup/email">
+          <EmailButton />
+        </Link>
         <TwitterButton />
         <GithubButton />
       </div>

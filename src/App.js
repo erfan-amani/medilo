@@ -1,21 +1,31 @@
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
+import Card from './features/Ui/Card';
 import Signin from './features/auth/Signin';
 import Signup from './features/auth/Signup';
-import Card from './features/Ui/Card';
+import SigninWithEmail from './features/auth/SigninWithEmail';
+import SignupWithEmail from './features/auth/SignupWithEmail';
 
 function App() {
   return (
     <BrowserRouter>
       <div className="flex items-center justify-center w-screen h-screen bg-gray-200">
-        <Card>
-          <Route path="/signup">
-            <Signup />
-          </Route>
-          <Route path="/signin">
-            <Signin />
-          </Route>
-        </Card>
+        <Switch>
+          <Card>
+            <Route path="/signup" exact>
+              <Signup />
+            </Route>
+            <Route path="/signin" exact>
+              <Signin />
+            </Route>
+            <Route path="/signin/email">
+              <SigninWithEmail />
+            </Route>
+            <Route path="/signup/email">
+              <SignupWithEmail />
+            </Route>
+          </Card>
+        </Switch>
       </div>
     </BrowserRouter>
   );
