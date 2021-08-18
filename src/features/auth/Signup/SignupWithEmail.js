@@ -1,42 +1,50 @@
-import { Form, Formik } from 'formik';
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 import TextField from '../../Ui/TextField';
+import FormikStepper from './FormikStepper';
 
-const SignupSchema = Yup.object({
-  email: Yup.string().email('Email is invalid').required('Required!'),
-  password: Yup.string()
-    .min(6, 'Must be at least 6 characters!')
-    .required('Password required!'),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref('password'), null], 'Must be match to password')
-    .required('Confirm password require!'),
-});
+const schemas = [
+  {
+    email: Yup.string().email('Email is invalid').required('Required!'),
+    password: Yup.string()
+      .min(6, 'Must be at least 6 characters!')
+      .required('Password required!'),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref('password'), null], 'Must be match to password')
+      .required('Confirm password require!'),
+  },
+  {
+    userName: Yup.string()
+      .max(15, 'Must be less than 15 characters!')
+      .required('User name is require!'),
+  },
+];
 
 const SigninWithEmail = (props) => {
   const initialValues = {
     email: '',
     password: '',
     confirmPassword: '',
+    userName: '',
+    photo: null,
   };
 
-  const submitHandler = (values, { setSubmitting, resetForm }) => {
+  const submitHandler = (values, { setSubmitting }) => {
     console.log(values);
     setSubmitting(true);
-    resetForm({});
   };
 
   return (
     <Fragment>
       <h2 className="text-xl md:text-3xl font-bold mb-8">Sign in with Email</h2>
-      <Formik
+      <FormikStepper
         initialValues={initialValues}
-        validationSchema={SignupSchema}
+        schemas={schemas}
         onSubmit={submitHandler}
-      >
-        {(formik) => (
-          <Form className="w-full space-y-4">
+        steps={[
+          // Step 1 : email & password
+          <Fragment>
             <TextField name="email" type="email" label="Email" />
             <TextField name="password" type="password" label="Password" />
             <TextField
@@ -44,19 +52,30 @@ const SigninWithEmail = (props) => {
               type="password"
               label="Confirm password"
             />
-            <button
-              type="submit"
-              disabled={
-                !formik.isValid ||
-                (!formik.touched.email && !formik.touched.password)
-              }
-              className="bg-indigo-700 hover:bg-indigo-600 text-white w-full text-center py-2 font-semibold disabled:cursor-not-allowed"
-            >
-              Sign in
-            </button>
-          </Form>
-        )}
-      </Formik>
+          </Fragment>,
+          // Step 2 : username & profile photo
+          (setFieldValue) => {
+            return (
+              <Fragment>
+                <TextField name="userName" type="text" label="User Name" />
+                <div className="flex flex-col">
+                  <label htmlFor="photo">Profile photo (optional)</label>
+                  <input
+                    id="photo"
+                    name="photo"
+                    type="file"
+                    accept="image/png, image/jpeg, image/svg"
+                    onChange={(event) => {
+                      setFieldValue('photo', event.currentTarget.files[0]);
+                    }}
+                    className="border-2 p-2"
+                  />
+                </div>
+              </Fragment>
+            );
+          },
+        ]}
+      />
       <Link to="/signin" className="text-gray-700 underline">
         All sign in options
       </Link>
