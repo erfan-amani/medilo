@@ -24,6 +24,12 @@ const Signin = () => {
         <TwitterButton />
         <GithubButton />
       </div>
+      <div className="text-gray-700">
+        No account ? {}
+        <Link to="/signup" className="underline text-gray-800">
+          Create one
+        </Link>
+      </div>
     </Fragment>
   );
 };
