@@ -2,19 +2,23 @@ import { Form, Formik } from 'formik';
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
-import TextField from '../Ui/TextField';
+import TextField from '../../Ui/TextField';
 
 const SignupSchema = Yup.object({
   email: Yup.string().email('Email is invalid').required('Required!'),
   password: Yup.string()
     .min(6, 'Must be at least 6 characters!')
     .required('Password required!'),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref('password'), null], 'Must be match to password')
+    .required('Confirm password require!'),
 });
 
 const SigninWithEmail = (props) => {
   const initialValues = {
     email: '',
     password: '',
+    confirmPassword: '',
   };
 
   const submitHandler = (values, { setSubmitting, resetForm }) => {
@@ -35,6 +39,11 @@ const SigninWithEmail = (props) => {
           <Form className="w-full space-y-4">
             <TextField name="email" type="email" label="Email" />
             <TextField name="password" type="password" label="Password" />
+            <TextField
+              name="confirmPassword"
+              type="password"
+              label="Confirm password"
+            />
             <button
               type="submit"
               disabled={

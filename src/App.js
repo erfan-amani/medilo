@@ -1,10 +1,10 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Card from './features/Ui/Card';
-import Signin from './features/auth/Signin';
-import Signup from './features/auth/Signup';
-import SigninWithEmail from './features/auth/SigninWithEmail';
-import SignupWithEmail from './features/auth/SignupWithEmail';
+import Signin from './features/auth/Signin/Signin';
+import Signup from './features/auth/Signup/Signup';
+import SigninWithEmail from './features/auth/Signin/SigninWithEmail';
+import SignupWithEmail from './features/auth/Signup/SignupWithEmail';
 
 function App() {
   return (

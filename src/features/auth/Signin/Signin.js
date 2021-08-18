@@ -1,11 +1,11 @@
 import { Fragment } from 'react';
 
-import FacebookButton from './AuthButtons/FacebookButton';
-import GithubButton from './AuthButtons/GithubButton';
-import GoogleButton from './AuthButtons/GoogleButton';
-import EmailButton from './AuthButtons/EmailButton';
-import TwitterButton from './AuthButtons/TwitterButton';
-import './AuthButtons/AuthButton.css';
+import FacebookButton from '../AuthButtons/FacebookButton';
+import GithubButton from '../AuthButtons/GithubButton';
+import GoogleButton from '../AuthButtons/GoogleButton';
+import EmailButton from '../AuthButtons/EmailButton';
+import TwitterButton from '../AuthButtons/TwitterButton';
+import '../AuthButtons/AuthButton.css';
 import { Link } from 'react-router-dom';
 
 const Signin = () => {
