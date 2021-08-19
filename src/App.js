@@ -5,8 +5,6 @@ import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import Card from './features/Ui/Card';
 import Signin from './features/auth/Signin/Signin';
 import Signup from './features/auth/Signup/Signup';
-import SigninWithEmail from './features/auth/Signin/SigninWithEmail';
-import SignupWithEmail from './features/auth/Signup/SignupWithEmail';
 import Posts from './features/posts/Posts';
 import { auth } from './firebase';
 import { userSignedin, userSignedout } from './features/auth/auth-slice';
@@ -57,20 +55,6 @@ function App() {
             <Route path="/signin" exact>
               <Card>
                 <Signin />
-              </Card>
-            </Route>
-          )}
-          {!user && (
-            <Route path="/signin/email">
-              <Card>
-                <SigninWithEmail />
-              </Card>
-            </Route>
-          )}
-          {!user && (
-            <Route path="/signup/email">
-              <Card>
-                <SignupWithEmail />
               </Card>
             </Route>
           )}
