@@ -20,7 +20,8 @@ function App() {
         // exctract user credential
         const userName = user.displayName;
         const email = user.email;
-        const photoURL = user.photoURL;
+        const photoURL =
+          user.photoURL || 'gs://medilo.appspot.com/default-avatar.jpg';
         const emailVerified = user.emailVerified;
         const uid = user.uid;
 
