@@ -1,6 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { signinWithGoogle, signinWithTwitter } from '../../firebase';
+import {
+  signinWithGithub,
+  signinWithGoogle,
+  signinWithTwitter,
+} from '../../firebase';
 
 // redux thunk action creator
 export const authWithGoogle = createAsyncThunk(
@@ -17,6 +21,13 @@ export const authWithTwitter = createAsyncThunk(
   }
 );
 
+export const authWithGithub = createAsyncThunk(
+  'auth/signinwithGithub',
+  async () => {
+    await signinWithGithub();
+  }
+);
+
 // create slice
 const authSlice = createSlice({
   name: 'auth',
@@ -30,20 +41,32 @@ const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    // when authenticaion failed
+    // google
     builder.addCase(authWithGoogle.rejected, (state, action) => {
       state.error = action.error.message;
       state.status = 'rejected';
     });
     builder.addCase(authWithGoogle.fulfilled, (state) => {
       state.error = null;
+      state.status = 'fulfilled';
     });
+    // twitter
     builder.addCase(authWithTwitter.rejected, (state, action) => {
       state.error = action.error.message;
       state.status = 'rejected';
     });
     builder.addCase(authWithTwitter.fulfilled, (state) => {
       state.error = null;
+      state.status = 'fulfilled';
+    });
+    // github
+    builder.addCase(authWithGithub.rejected, (state, action) => {
+      state.error = action.error.message;
+      state.status = 'rejected';
+    });
+    builder.addCase(authWithGithub.fulfilled, (state) => {
+      state.error = null;
+      state.status = 'fulfilled';
     });
   },
 });

@@ -23,3 +23,8 @@ export const signinWithTwitter = () => {
   const provider = new firebase.auth.TwitterAuthProvider();
   return auth.signInWithPopup(provider);
 };
+
+export const signinWithGithub = () => {
+  const provider = new firebase.auth.GithubAuthProvider();
+  return auth.signInWithPopup(provider);
+};
