@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
 import Card from './features/Ui/Card';
-import Signin from './features/auth/Signin/Signin';
-import Signup from './features/auth/Signup/Signup';
+import Signin from './features/auth/Signin';
 import Posts from './features/posts/Posts';
 import { auth } from './firebase';
 import { userSignedin, userSignedout } from './features/auth/auth-slice';
@@ -45,13 +44,6 @@ function App() {
     <BrowserRouter>
       <div className="flex items-center justify-center w-screen h-screen bg-gray-200">
         <Switch>
-          {!user && (
-            <Route path="/signup" exact>
-              <Card>
-                <Signup />
-              </Card>
-            </Route>
-          )}
           {!user && (
             <Route path="/signin" exact>
               <Card>

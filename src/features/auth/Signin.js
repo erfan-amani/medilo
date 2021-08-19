@@ -1,10 +1,9 @@
 import { Fragment } from 'react';
-import { Link } from 'react-router-dom';
 
-import GithubButton from '../AuthButtons/GithubButton';
-import GoogleButton from '../AuthButtons/GoogleButton';
-import TwitterButton from '../AuthButtons/TwitterButton';
-import '../AuthButtons/AuthButton.css';
+import GithubButton from './AuthButtons/GithubButton';
+import GoogleButton from './AuthButtons/GoogleButton';
+import TwitterButton from './AuthButtons/TwitterButton';
+import './AuthButtons/AuthButton.css';
 
 const Signin = () => {
   return (
@@ -19,12 +18,6 @@ const Signin = () => {
         <GoogleButton />
         <TwitterButton />
         <GithubButton />
-      </div>
-      <div className="text-gray-700 mt-8">
-        No account ? {}
-        <Link to="/signup" className="underline text-gray-800">
-          Create one
-        </Link>
       </div>
     </Fragment>
   );

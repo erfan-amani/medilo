@@ -18,14 +18,11 @@ const Nav = () => {
           <Link to="/posts" className="font-bold text-2xl flex-grow">
             Medilo
           </Link>
-          <Link to="/signin" className="px-2 rounded-md text-indigo-800">
-            Sign in
-          </Link>
           <Link
-            to="signup"
+            to="/signin"
             className="text-white bg-blue-600 px-3 py-1 rounded-md"
           >
-            Sign up
+            Sign in
           </Link>
         </Fragment>
       ) : (
