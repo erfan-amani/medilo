@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
-import FacebookButton from '../AuthButtons/FacebookButton';
+// import FacebookButton from '../AuthButtons/FacebookButton';
 import GithubButton from '../AuthButtons/GithubButton';
 import GoogleButton from '../AuthButtons/GoogleButton';
 import EmailButton from '../AuthButtons/EmailButton';
@@ -19,7 +19,7 @@ const Signup = () => {
       </div>
       <div className="flex flex-col gap-2 w-full">
         <GoogleButton />
-        <FacebookButton />
+        {/* <FacebookButton /> */}
         <Link to="/signup/email">
           <EmailButton />
         </Link>
