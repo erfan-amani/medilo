@@ -31,13 +31,13 @@ export const authWithGithub = createAsyncThunk(
 // create slice
 const authSlice = createSlice({
   name: 'auth',
-  initialState: { user: {}, status: 'idle', error: null },
+  initialState: { user: null, status: 'idle', error: null },
   reducers: {
     userSignedin: (state, action) => {
       state.user = action.payload;
     },
     userSignedout: (state) => {
-      state.user = {};
+      state.user = null;
     },
   },
   extraReducers: (builder) => {
