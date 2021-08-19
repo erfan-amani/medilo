@@ -26,7 +26,7 @@ const Signin = () => {
         <TwitterButton />
         <GithubButton />
       </div>
-      <div className="text-gray-700">
+      <div className="text-gray-700 mt-8">
         No account ? {}
         <Link to="/signup" className="underline text-gray-800">
           Create one

@@ -21,7 +21,7 @@ const schemas = [
   },
 ];
 
-const SigninWithEmail = (props) => {
+const SigninWithEmail = () => {
   const initialValues = {
     email: '',
     password: '',
@@ -37,7 +37,7 @@ const SigninWithEmail = (props) => {
 
   return (
     <Fragment>
-      <h2 className="text-xl md:text-3xl font-bold mb-8">Sign in with Email</h2>
+      <h2 className="text-xl md:text-3xl font-bold mb-8">Sign up with Email</h2>
       <FormikStepper
         initialValues={initialValues}
         schemas={schemas}
@@ -76,8 +76,8 @@ const SigninWithEmail = (props) => {
           },
         ]}
       />
-      <Link to="/signin" className="text-gray-700 underline">
-        All sign in options
+      <Link to="/signup" className="text-gray-700 underline">
+        All sign up options
       </Link>
     </Fragment>
   );

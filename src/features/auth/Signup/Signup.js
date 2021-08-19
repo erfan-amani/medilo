@@ -26,7 +26,7 @@ const Signup = () => {
         <TwitterButton />
         <GithubButton />
       </div>
-      <div className="text-gray-700">
+      <div className="text-gray-700 mt-8">
         Already have account ? {}
         <Link to="/signin" className="underline text-gray-800">
           Log in
