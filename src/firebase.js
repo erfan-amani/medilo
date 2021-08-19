@@ -13,10 +13,13 @@ const firebaseConfig = {
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 export const auth = firebaseApp.auth();
-// firebase.auth().useDeviceLanguage();
 
 export const signinWithGoogle = () => {
   const provider = new firebase.auth.GoogleAuthProvider();
   return auth.signInWithPopup(provider);
-  // auth.signInWithPopup(provider).then((user) => console.log(user));
+};
+
+export const signinWithTwitter = () => {
+  const provider = new firebase.auth.TwitterAuthProvider();
+  return auth.signInWithPopup(provider);
 };
