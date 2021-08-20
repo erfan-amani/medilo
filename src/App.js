@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { Fragment, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
@@ -7,7 +7,7 @@ import Signin from './features/auth/Signin';
 import Posts from './features/posts/Posts';
 import Profile from './features/profile/Profile';
 import { auth } from './firebase';
-import { userSignedin, userSignedout } from './features/auth/auth-slice';
+import { userSignedin, userNotFound } from './features/auth/auth-slice';
 import Nav from './features/layout/Nav';
 
 function App() {
@@ -35,7 +35,7 @@ function App() {
         };
         dispatch(userSignedin(userData));
       } else {
-        dispatch(userSignedout());
+        dispatch(userNotFound());
       }
     });
 
@@ -44,27 +44,31 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Switch>
-        {!user && (
-          <Route path="/signin" exact>
-            <div className="flex items-center justify-center w-screen h-screen bg-gray-200">
-              <Signin />
-            </div>
-          </Route>
-        )}
-        <div className="relative h-screen w-screen bg-white overflow-x-hidden">
-          <Nav />
-          <Route path="/posts">
-            <Posts />
-          </Route>
-          <Route path="/profile">
-            <Profile />
-          </Route>
-          <Route path="*">
-            <Redirect to="/posts" />
-          </Route>
-        </div>
-      </Switch>
+      <div className="relative h-screen w-screen bg-white overflow-x-hidden">
+        <Switch>
+          {!user && (
+            <Route path="/signin" exact>
+              <div className="flex items-center justify-center w-full h-full bg-gray-200">
+                <Signin />
+              </div>
+            </Route>
+          )}
+          <Fragment>
+            <Nav />
+            <Route path="/posts">
+              <Posts />
+            </Route>
+            {user && (
+              <Route path="/profile">
+                <Profile />
+              </Route>
+            )}
+            <Route path="*">
+              <Redirect to="/posts" />
+            </Route>
+          </Fragment>
+        </Switch>
+      </div>
     </BrowserRouter>
   );
 }

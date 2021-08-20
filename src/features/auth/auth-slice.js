@@ -4,6 +4,7 @@ import {
   signinWithGithub,
   signinWithGoogle,
   signinWithTwitter,
+  signoutRequest,
 } from '../../firebase';
 
 // redux thunk action creator
@@ -28,6 +29,10 @@ export const authWithGithub = createAsyncThunk(
   }
 );
 
+export const signout = createAsyncThunk('auth/signout', async () => {
+  await signoutRequest();
+});
+
 // create slice
 const authSlice = createSlice({
   name: 'auth',
@@ -36,7 +41,7 @@ const authSlice = createSlice({
     userSignedin: (state, action) => {
       state.user = action.payload;
     },
-    userSignedout: (state) => {
+    userNotFound: (state) => {
       state.user = null;
     },
   },
@@ -75,4 +80,4 @@ const authSlice = createSlice({
 export default authSlice.reducer;
 
 // export actions from reducer
-export const { userSignedin, userSignedout, authFailed } = authSlice.actions;
+export const { userSignedin, userNotFound, authFailed } = authSlice.actions;
