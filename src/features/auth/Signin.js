@@ -1,13 +1,12 @@
-import { Fragment } from 'react';
-
 import GithubButton from './AuthButtons/GithubButton';
 import GoogleButton from './AuthButtons/GoogleButton';
 import TwitterButton from './AuthButtons/TwitterButton';
 import './AuthButtons/AuthButton.css';
+import Card from '../Ui/Card';
 
 const Signin = () => {
   return (
-    <Fragment>
+    <Card>
       <div className="text-center">
         <h2 className="text-2xl md:text-3xl text-gray-800 font-bold">
           Sign In
@@ -19,7 +18,7 @@ const Signin = () => {
         <TwitterButton />
         <GithubButton />
       </div>
-    </Fragment>
+    </Card>
   );
 };
 
