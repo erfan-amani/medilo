@@ -2,13 +2,13 @@ import { Fragment, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
-import Card from './features/Ui/Card';
 import Signin from './features/auth/Signin';
 import Posts from './features/posts/Posts';
 import Profile from './features/profile/Profile';
 import { auth } from './firebase';
 import { userSignedin, userNotFound } from './features/auth/auth-slice';
 import Nav from './features/layout/Nav';
+import NewPost from './features/posts/newPost/NewPost';
 
 function App() {
   const dispatch = useDispatch();
@@ -59,9 +59,14 @@ function App() {
               <Posts />
             </Route>
             {user && (
-              <Route path="/profile">
-                <Profile />
-              </Route>
+              <Fragment>
+                <Route path="/profile">
+                  <Profile />
+                </Route>
+                <Route path="/new">
+                  <NewPost />
+                </Route>
+              </Fragment>
             )}
             <Route path="*">
               <Redirect to="/posts" />
