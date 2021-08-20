@@ -1,7 +1,11 @@
+import { useSelector } from 'react-redux';
+
 const { default: CommentIcon } = require('../Ui/Icons/CommentIcon');
 const { default: LikeIcon } = require('../Ui/Icons/LikeIcon');
 
 const PostItem = ({ id, caption, userName, photoURL, image }) => {
+  const user = useSelector((state) => state.auth.user);
+
   return (
     <div className="w-full w-max">
       <img
@@ -19,10 +23,12 @@ const PostItem = ({ id, caption, userName, photoURL, image }) => {
           <h3 className="font-medium leading-4">{userName}</h3>
           <p className="text-sm text-gray-600 leading-4">two minutes ago</p>
         </div>
-        <div className="flex gap-3">
-          <CommentIcon />
-          <LikeIcon />
-        </div>
+        {user && (
+          <div className="flex gap-3">
+            <CommentIcon />
+            <LikeIcon />
+          </div>
+        )}
       </div>
     </div>
   );
