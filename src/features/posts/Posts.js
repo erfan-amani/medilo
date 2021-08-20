@@ -1,11 +1,17 @@
 import Nav from '../layout/Nav';
+import PostsList from './PostsList';
 
 const Posts = () => {
   console.log('here');
   return (
-    <div className="flex flex-col-reverse h-full w-full bg-white md:flex-col">
+    <div className="relative h-full w-full bg-white overflow-x-hidden">
       <Nav />
-      <div className="flex-grow">posts</div>
+      <div
+        className="flex-grow w-max mx-auto"
+        style={{ paddingBottom: '58px' }}
+      >
+        <PostsList />
+      </div>
     </div>
   );
 };
