@@ -45,34 +45,48 @@ const authSlice = createSlice({
       state.user = null;
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: {
     // google
-    builder.addCase(authWithGoogle.rejected, (state, action) => {
+    [authWithGoogle.rejected]: (state, action) => {
       state.error = action.error.message;
       state.status = 'rejected';
-    });
-    builder.addCase(authWithGoogle.fulfilled, (state) => {
+    },
+    [authWithGoogle.fulfilled]: (state) => {
       state.error = null;
       state.status = 'fulfilled';
-    });
+    },
+    [authWithGoogle.pending]: (state) => {
+      state.error = null;
+      state.status = 'pending';
+    },
+
     // twitter
-    builder.addCase(authWithTwitter.rejected, (state, action) => {
+    [authWithTwitter.rejected]: (state, action) => {
       state.error = action.error.message;
       state.status = 'rejected';
-    });
-    builder.addCase(authWithTwitter.fulfilled, (state) => {
+    },
+    [authWithTwitter.fulfilled]: (state) => {
       state.error = null;
       state.status = 'fulfilled';
-    });
+    },
+    [authWithTwitter.pending]: (state) => {
+      state.error = null;
+      state.status = 'pending';
+    },
+
     // github
-    builder.addCase(authWithGithub.rejected, (state, action) => {
+    [authWithGithub.rejected]: (state, action) => {
       state.error = action.error.message;
       state.status = 'rejected';
-    });
-    builder.addCase(authWithGithub.fulfilled, (state) => {
+    },
+    [authWithGithub.fulfilled]: (state) => {
       state.error = null;
       state.status = 'fulfilled';
-    });
+    },
+    [authWithGithub.pending]: (state) => {
+      state.error = null;
+      state.status = 'pending';
+    },
   },
 });
 
