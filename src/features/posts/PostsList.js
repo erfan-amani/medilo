@@ -19,7 +19,13 @@ const PostsList = () => {
   );
 
   if (status === 'completed' && posts.length > 0) {
-    content = posts.map((p) => <PostItem key={p.id} {...p} />);
+    content = (
+      <div className="grid grid-cols-1 lg:grid-cols-3 justify-items-center min-h-full py-8 gap-8 overflow-x-hidden">
+        {posts.map((p) => (
+          <PostItem key={p.id} {...p} />
+        ))}
+      </div>
+    );
   }
 
   if (status === 'pending') {
@@ -35,18 +41,16 @@ const PostsList = () => {
 
   if (status === 'error' && error) {
     content = (
-      <div className="text-center text-lg">
-        <p className="text-red-600 mb-4">Something went wrong ⚠ </p>
+      <div className="text-center text-lg pt-20">
+        <p className="text-red-600 mb-4 font-semibold text-xl">
+          ❌ Something went wrong ❌
+        </p>
         <p className="text-gray-800">{error}</p>
       </div>
     );
   }
 
-  return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 justify-items-center min-h-full py-8 gap-8 overflow-x-hidden">
-      {content}
-    </div>
-  );
+  return content;
 };
 
 export default PostsList;
