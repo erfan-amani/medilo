@@ -9,15 +9,19 @@ import { auth, db } from './firebase';
 import { userSignedin, userNotFound } from './features/auth/auth-slice';
 import Nav from './features/layout/Nav';
 import NewPost from './features/posts/newPost/NewPost';
-import { updatePosts } from './features/posts/posts-slice';
+import {
+  failedFetching,
+  startedFetching,
+  completedFetching,
+} from './features/posts/posts-slice';
 
 function App() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
 
-  // add auth listener to the app
+  // Set auth listener
   useEffect(() => {
-    const unsubscribeAuth = auth.onAuthStateChanged((user) => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         // exctract user credential
         const userName = user.displayName;
@@ -25,14 +29,14 @@ function App() {
         const photoURL =
           user.photoURL || 'gs://medilo.appspot.com/default-avatar.jpg';
         const emailVerified = user.emailVerified;
-        const uid = user.uid;
+        const userId = user.uid;
 
         const userData = {
           userName,
           email,
           photoURL,
           emailVerified,
-          uid,
+          userId,
         };
         dispatch(userSignedin(userData));
       } else {
@@ -40,26 +44,37 @@ function App() {
       }
     });
 
-    const unsubscribeDb = db
+    return unsubscribe;
+  }, [dispatch]);
+
+  // Set db listener
+  useEffect(() => {
+    dispatch(startedFetching());
+
+    const unsubscribe = db
       .collection('posts')
       .orderBy('timestamp', 'desc')
-      .onSnapshot((snapshot) => {
-        const posts = snapshot.docs.map((doc) => {
-          const data = doc.data();
-          return {
-            ...data,
-            id: doc.id,
-            timestamp: { ...data.timestamp },
-          };
-        });
-        dispatch(updatePosts(posts));
-      });
+      .onSnapshot(
+        (snapshot) => {
+          const posts = snapshot.docs.map((doc) => {
+            const data = doc.data();
+            return {
+              ...data,
+              id: doc.id,
+              timestamp: { ...data.timestamp },
+            };
+          });
+          const userId = user ? user.userId : null;
 
-    return () => {
-      unsubscribeAuth();
-      unsubscribeDb();
-    };
-  }, [dispatch]);
+          dispatch(completedFetching({ items: posts, userId }));
+        },
+        (error) => {
+          dispatch(failedFetching(error.message));
+        }
+      );
+
+    return unsubscribe;
+  }, [dispatch, user]);
 
   return (
     <BrowserRouter>
