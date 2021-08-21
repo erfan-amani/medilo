@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 
 import Card from '../../Ui/Card';
 import LoadingSpinner from '../../Ui/LoadingSppiner';
-import { storage, db } from '../../../firebase';
+import { storage, db, serverTimestamp } from '../../../firebase';
 import { addPost } from '../posts-slice';
 
 const SUPPORTED_SIZE = 1024 * 2024;
@@ -67,7 +67,7 @@ const NewPost = () => {
           };
 
           db.collection('posts')
-            .add(postData)
+            .add({ ...postData, timestamp: serverTimestamp() })
             .then((postRef) => {
               postData.id = postRef.id;
 
