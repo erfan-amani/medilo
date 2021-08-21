@@ -1,4 +1,4 @@
-const { createSlice } = require('@reduxjs/toolkit');
+import { createSlice } from '@reduxjs/toolkit';
 
 const postsSlice = createSlice({
   name: 'posts',
@@ -11,9 +11,12 @@ const postsSlice = createSlice({
     addPost: (state, action) => {
       state.items.push(action.payload);
     },
+    updatePosts: (state, action) => {
+      state.items = action.payload;
+    },
   },
 });
 
 export default postsSlice.reducer;
 
-export const { addPost } = postsSlice.actions;
+export const { addPost, updatePosts } = postsSlice.actions;

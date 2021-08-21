@@ -5,10 +5,11 @@ import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import Signin from './features/auth/Signin';
 import Posts from './features/posts/Posts';
 import Profile from './features/profile/Profile';
-import { auth } from './firebase';
+import { auth, db } from './firebase';
 import { userSignedin, userNotFound } from './features/auth/auth-slice';
 import Nav from './features/layout/Nav';
 import NewPost from './features/posts/newPost/NewPost';
+import { updatePosts } from './features/posts/posts-slice';
 
 function App() {
   const dispatch = useDispatch();
@@ -16,7 +17,7 @@ function App() {
 
   // add auth listener to the app
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
+    const unsubscribeAuth = auth.onAuthStateChanged((user) => {
       if (user) {
         // exctract user credential
         const userName = user.displayName;
@@ -39,7 +40,22 @@ function App() {
       }
     });
 
-    return unsubscribe;
+    const unsubscribeDb = db.collection('posts').onSnapshot((snapshot) => {
+      const posts = snapshot.docs.map((doc) => {
+        const data = doc.data();
+        return {
+          ...data,
+          id: doc.id,
+          timestamp: { ...data.timestamp },
+        };
+      });
+      dispatch(updatePosts(posts));
+    });
+
+    return () => {
+      unsubscribeAuth();
+      unsubscribeDb();
+    };
   }, [dispatch]);
 
   return (
