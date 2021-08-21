@@ -11,7 +11,7 @@ const PostItem = ({ id, caption, userName, userProfile, image }) => {
 
   return (
     <div className="w-full w-max">
-      <PostImage src={image} fallbackSrc={failedImage} />
+      <PostImage src={image} fallbackSrc={failedImage} className="w-96 h-96" />
 
       <div className="flex items-center gap-4 py-2 px-4 border-l-2 border-r-2 border-b-2">
         <picture>
