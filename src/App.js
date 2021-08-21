@@ -40,17 +40,20 @@ function App() {
       }
     });
 
-    const unsubscribeDb = db.collection('posts').onSnapshot((snapshot) => {
-      const posts = snapshot.docs.map((doc) => {
-        const data = doc.data();
-        return {
-          ...data,
-          id: doc.id,
-          timestamp: { ...data.timestamp },
-        };
+    const unsubscribeDb = db
+      .collection('posts')
+      .orderBy('timestamp', 'desc')
+      .onSnapshot((snapshot) => {
+        const posts = snapshot.docs.map((doc) => {
+          const data = doc.data();
+          return {
+            ...data,
+            id: doc.id,
+            timestamp: { ...data.timestamp },
+          };
+        });
+        dispatch(updatePosts(posts));
       });
-      dispatch(updatePosts(posts));
-    });
 
     return () => {
       unsubscribeAuth();
