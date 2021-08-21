@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 
 import Card from '../../Ui/Card';
-import LoadingSpinner from '../../Ui/LoadingSppiner';
+import LoadingSpinner from '../../Ui/LoadingSpinner';
 import { storage, db, serverTimestamp } from '../../../firebase';
 import { addPost } from '../posts-slice';
 
