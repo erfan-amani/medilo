@@ -1,10 +1,27 @@
+import { useDispatch } from 'react-redux';
+
+import Card from '../Ui/Card';
 import GithubButton from './AuthButtons/GithubButton';
 import GoogleButton from './AuthButtons/GoogleButton';
 import TwitterButton from './AuthButtons/TwitterButton';
+import { authWithGithub, authWithGoogle, authWithTwitter } from './auth-slice';
 import './AuthButtons/AuthButton.css';
-import Card from '../Ui/Card';
 
 const Signin = () => {
+  const dispatch = useDispatch();
+
+  const githubSignHanlder = () => {
+    dispatch(authWithGithub());
+  };
+
+  const googleSignHandler = () => {
+    dispatch(authWithGoogle());
+  };
+
+  const twitterSignHandler = () => {
+    dispatch(authWithTwitter());
+  };
+
   return (
     <Card>
       <div className="text-center">
@@ -14,9 +31,9 @@ const Signin = () => {
         <p className="text-gray-700">enter to your account</p>
       </div>
       <div className="flex flex-col gap-2 w-full">
-        <GoogleButton />
-        <TwitterButton />
-        <GithubButton />
+        <GoogleButton authHandler={googleSignHandler} />
+        <TwitterButton authHandler={twitterSignHandler} />
+        <GithubButton authHandler={githubSignHanlder} />
       </div>
     </Card>
   );

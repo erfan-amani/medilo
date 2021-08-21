@@ -1,15 +1,6 @@
-import { useDispatch } from 'react-redux';
-
 import GoogleIcon from '../../Ui/Icons/GoogleIcon';
-import { authWithGoogle } from '../auth-slice';
 
-const GoogleButton = () => {
-  const dispatch = useDispatch();
-
-  const authHandler = async () => {
-    dispatch(authWithGoogle());
-  };
-
+const GoogleButton = ({ authHandler }) => {
   return (
     <button type="button" className="button" onClick={authHandler}>
       <GoogleIcon className="rounded-2xl" />

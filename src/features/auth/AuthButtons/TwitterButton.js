@@ -1,15 +1,6 @@
-import { useDispatch } from 'react-redux';
-
 import TwitterIcon from '../../Ui/Icons/TwitterIcon';
-import { authWithTwitter } from '../auth-slice';
 
-const TwitterButton = () => {
-  const dispatch = useDispatch();
-
-  const authHandler = () => {
-    dispatch(authWithTwitter());
-  };
-
+const TwitterButton = ({ authHandler }) => {
   return (
     <button type="button" className="button" onClick={authHandler}>
       <TwitterIcon />

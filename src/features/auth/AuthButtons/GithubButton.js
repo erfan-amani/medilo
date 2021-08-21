@@ -1,15 +1,6 @@
-import { useDispatch } from 'react-redux';
-
 import GithubIcon from '../../Ui/Icons/GithubIcon';
-import { authWithGithub } from '../auth-slice';
 
-const GithubButton = () => {
-  const dispatch = useDispatch();
-
-  const authHandler = () => {
-    dispatch(authWithGithub());
-  };
-
+const GithubButton = ({ authHandler }) => {
   return (
     <button type="button" className="button" onClick={authHandler}>
       <GithubIcon className="rounded-2xl" />
