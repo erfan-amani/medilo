@@ -1,0 +1,10 @@
+/* this style define to make the height of image same as width of image 
+
+full answer is here: https://stackoverflow.com/questions/51447317/image-height-same-as-width
+*/
+
+.image-container::after {
+  content: '';
+  display: block;
+  padding-bottom: 100%;
+}
