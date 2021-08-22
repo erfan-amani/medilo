@@ -11,33 +11,21 @@ import {
 export const authWithGoogle = createAsyncThunk(
   'auth/signinWithGoogle',
   async () => {
-    try {
-      await signinWithGoogle();
-    } catch (error) {
-      console.log(error);
-    }
+    await signinWithGoogle();
   }
 );
 
 export const authWithTwitter = createAsyncThunk(
   'auth/signinWithTwitter',
   async () => {
-    try {
-      await signinWithTwitter();
-    } catch (error) {
-      console.log(error);
-    }
+    await signinWithTwitter();
   }
 );
 
 export const authWithGithub = createAsyncThunk(
   'auth/signinwithGithub',
   async () => {
-    try {
-      await signinWithGithub();
-    } catch (error) {
-      console.log(error);
-    }
+    await signinWithGithub();
   }
 );
 
