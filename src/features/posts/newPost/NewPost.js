@@ -19,7 +19,7 @@ const validationSchema = Yup.object({
     .required('Image is required')
     .test(
       'fileSize',
-      'File too large',
+      'File is too large. Maximum 2MB',
       (value) => value?.size <= SUPPORTED_SIZE
     )
     .test('fileFormat', 'Unsupported Format', (value) =>
