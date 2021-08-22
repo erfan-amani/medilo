@@ -63,7 +63,7 @@ const NewPost = () => {
             image: downloadURL,
             userName: user.userName,
             userProfile: user.photoURL,
-            userId: user.uid,
+            userId: user.userId,
           };
 
           db.collection('posts')
