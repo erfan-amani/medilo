@@ -1,9 +1,9 @@
-import PostsList from './PostsList';
+import MainPostsList from './MainPostsList';
 
 const Posts = () => {
   return (
     <div className="flex-grow w-max mx-auto pb-16">
-      <PostsList />
+      <MainPostsList />
     </div>
   );
 };

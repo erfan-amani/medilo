@@ -1,9 +1,9 @@
-import PostImage from '../posts/PostImage';
-import failedImage from '../../assets/images/failed-post.jpg';
+import PostImage from './PostImage';
+import failedImage from '../../../assets/images/failed-post.jpg';
 
-import './UserPostItem.css';
+import './PostItemSmall.css';
 
-const UserPostItem = ({ image }) => {
+const PostItemSmall = ({ image }) => {
   return (
     <div className="image-container relative w-full h-full bg-gray-400 border border-white">
       <PostImage
@@ -15,4 +15,4 @@ const UserPostItem = ({ image }) => {
   );
 };
 
-export default UserPostItem;
+export default PostItemSmall;

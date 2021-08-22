@@ -1,16 +1,10 @@
 import { useSelector } from 'react-redux';
-import UserPostItem from './UserPostItem';
+import PostListSmall from '../Ui/posts/PostListSmall';
 
 const UserPostList = () => {
   const userPosts = useSelector((state) => state.posts.userPosts);
 
-  return (
-    <div className="grid grid-cols-3 lg:grid-cols-4 pb-14 md:pb-0">
-      {userPosts.map((post) => (
-        <UserPostItem key={post.id} image={post.image} />
-      ))}
-    </div>
-  );
+  return <PostListSmall posts={userPosts} />;
 };
 
 export default UserPostList;

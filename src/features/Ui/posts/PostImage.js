@@ -17,7 +17,7 @@ const PostImage = ({ src, fallbackSrc, className }) => {
   return (
     <img
       src={imageSrc}
-      alt="post"
+      alt=""
       loading="lazy"
       onError={errorHandler}
       className={classes}

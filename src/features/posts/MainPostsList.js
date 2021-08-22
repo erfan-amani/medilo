@@ -4,7 +4,7 @@ import PostItem from './PostItem';
 import LoadingSpinner from '../Ui/LoadingSpinner';
 import { Link } from 'react-router-dom';
 
-const PostsList = () => {
+const MainPostsList = () => {
   const posts = useSelector((state) => state.posts.items);
   const status = useSelector((state) => state.posts.status);
   const error = useSelector((state) => state.posts.error);
@@ -53,4 +53,4 @@ const PostsList = () => {
   return content;
 };
 
-export default PostsList;
+export default MainPostsList;

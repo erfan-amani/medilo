@@ -4,7 +4,7 @@ import CommentIcon from '../Ui/Icons/CommentIcon';
 import LikeIcon from '../Ui/Icons/LikeIcon';
 
 import failedImage from '../../assets/images/failed-post.jpg';
-import PostImage from './PostImage';
+import PostImage from '../Ui/posts/PostImage';
 
 const PostItem = ({ id, caption, userName, userProfile, image }) => {
   const user = useSelector((state) => state.auth.user);
