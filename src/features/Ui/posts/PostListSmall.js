@@ -9,7 +9,7 @@ const PostListSmall = ({ posts }) => {
     content = (
       <div className="grid grid-cols-3 lg:grid-cols-4 pb-14 md:pb-0">
         {posts.map((post) => (
-          <PostItemSmall key={post.id} image={post.image} />
+          <PostItemSmall key={post.id} image={post.image} postId={post.id} />
         ))}
       </div>
     );
