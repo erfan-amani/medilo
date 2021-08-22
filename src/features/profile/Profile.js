@@ -16,7 +16,7 @@ const Profile = () => {
 
   return (
     <div className="w-full h-full bg-gray-200 md:py-8 mb-4">
-      <div className="flex flex-col h-full md:h-auto md:gap-8 m-auto bg-white w-full md:w-2/3 xl:w-1/2 md:p-4 md:p-8 text-gray-800">
+      <div className="flex flex-col h-full md:h-auto md:gap-8 m-auto bg-white w-full md:w-2/3 xl:w-1/2 md:p-4 md:p-8 text-gray-800 shadow-md">
         <div className="flex gap-4 border-b-2 px-4 md:px-0 py-3 md:pb-8">
           <img
             src={user.photoURL}
