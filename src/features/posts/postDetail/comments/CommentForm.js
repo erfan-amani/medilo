@@ -1,11 +1,9 @@
 import { nanoid } from '@reduxjs/toolkit';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
 import { db, serverTimestamp } from '../../../../firebase';
 
-const CommentForm = ({ postId }) => {
+const CommentForm = ({ postId, user }) => {
   const [enteredComment, setEnteredComment] = useState('');
-  const user = useSelector((state) => state.auth.user);
 
   const commentChangeHandler = (event) => {
     setEnteredComment(event.target.value);

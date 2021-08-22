@@ -1,8 +1,10 @@
 import { Fragment, useState } from 'react';
+import { useSelector } from 'react-redux';
 import CommentForm from './CommentForm';
 import CommentsList from './CommentsList';
 
 const Comments = ({ postId }) => {
+  const user = useSelector((state) => state.auth.user);
   const [isCommentsVisible, setIsCommentsVisible] = useState(false);
 
   const showCommentHandler = () => {
@@ -22,7 +24,13 @@ const Comments = ({ postId }) => {
         <p className="pt-2 text-gray-600 w-max">Comments</p>
       )}
       {isCommentsVisible && <CommentsList postId={postId} />}
-      <CommentForm postId={postId} />
+      {user ? (
+        <CommentForm postId={postId} user={user} />
+      ) : (
+        <p className="flex border-t-2 items-center py-1">
+          Login to write comment
+        </p>
+      )}
     </Fragment>
   );
 };
