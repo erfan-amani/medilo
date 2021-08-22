@@ -4,6 +4,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import PostImage from '../../Ui/posts/PostImage';
 import fallbackSrc from '../../../assets/images/failed-post.jpg';
 import PostData from './PostData';
+import Comments from './comments/Comments';
 
 const PostDetail = () => {
   const history = useHistory();
@@ -28,7 +29,10 @@ const PostDetail = () => {
           fallbackSrc={fallbackSrc}
           className="w-full h-auto object-contain"
         />
-        <PostData {...postData} />
+        <div className="flex flex-col w-full p-4">
+          <PostData {...postData} />
+          <Comments postId={postId} />
+        </div>
       </div>
     </div>
   );

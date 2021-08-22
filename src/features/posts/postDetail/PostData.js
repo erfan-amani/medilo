@@ -1,4 +1,5 @@
 import { formatDistanceToNow } from 'date-fns';
+import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
 const PostData = ({
@@ -12,7 +13,7 @@ const PostData = ({
   const timeDistance = formatDistanceToNow(new Date(timestamp.seconds * 1000));
 
   return (
-    <div className="flex flex-col w-full p-4">
+    <Fragment>
       <div className="flex border-b-2 pb-4 border-gray-300 gap-3">
         <Link to={`/user/${userId}`}>
           <picture>
@@ -31,7 +32,7 @@ const PostData = ({
           <p className="text-sm text-gray-600 leading-4">{timeDistance} ago</p>
         </div>
       </div>
-      <div className="py-4 flex-grow">
+      <div className="py-4 mb-4">
         <Link to={`/user/${userId}`} className="font-semibold text-md pr-2">
           {userName}
         </Link>
@@ -42,22 +43,8 @@ const PostData = ({
           {caption}
           {caption}
         </span>
-        <p className="pt-2 text-gray-600 cursor-pointer w-max">View comments</p>
       </div>
-      <form className="flex py-2 border-t-2 items-center">
-        <input
-          type="text"
-          placeholder="Add a comment..."
-          className="flex-grow focus:outline-none"
-        />
-        <button
-          type="submit"
-          className="text-blue-700 disabled:cursor-not-allowed"
-        >
-          post
-        </button>
-      </form>
-    </div>
+    </Fragment>
   );
 };
 
