@@ -18,7 +18,7 @@ const authSlice = createSlice({
       state.user = null;
     },
     siginStarted: (state) => {
-      state.status = ' pending';
+      state.status = 'pending';
       state.error = null;
     },
     siginFailed: (state, action) => {
