@@ -29,7 +29,7 @@ const PostDetail = () => {
           fallbackSrc={fallbackSrc}
           className="w-full h-auto object-contain"
         />
-        <div className="flex flex-col w-full h-full p-4 pb-1 md:pb-4">
+        <div className="flex flex-col w-full h-full p-4 pb-1 md:pb-4 overflow-y-scroll">
           <PostData {...postData} />
           <Comments postId={postId} />
         </div>
