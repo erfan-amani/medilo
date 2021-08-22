@@ -36,13 +36,7 @@ const PostData = ({
         <Link to={`/user/${userId}`} className="font-semibold text-md pr-2">
           {userName}
         </Link>
-        <span>
-          {caption}
-          {caption}
-          {caption}
-          {caption}
-          {caption}
-        </span>
+        <span>{caption}</span>
       </div>
     </Fragment>
   );
