@@ -20,7 +20,7 @@ const PostDetail = () => {
 
   return (
     <div
-      className="flex w-full bg-gray-200 py-16"
+      className="flex w-full bg-gray-200 mb-14 md:py-16"
       style={{ height: 'calc(100% - 58px)' }}
     >
       <div className="flex flex-col h-full md:flex-row bg-white w-full md:m-auto md:w-5/6 text-gray-800 shadow-md mb-14">
@@ -29,7 +29,7 @@ const PostDetail = () => {
           fallbackSrc={fallbackSrc}
           className="w-full h-auto object-contain"
         />
-        <div className="flex flex-col w-full p-4">
+        <div className="flex flex-col w-full h-full p-4 pb-1 md:pb-4">
           <PostData {...postData} />
           <Comments postId={postId} />
         </div>
