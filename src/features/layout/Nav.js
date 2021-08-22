@@ -20,7 +20,7 @@ const Nav = () => {
           </Link>
           <Link
             to="/signin"
-            className="text-white bg-blue-600 px-3 py-1 rounded-md"
+            className="text-white bg-blue-600 px-3 py-2 rounded-md"
           >
             Sign in
           </Link>
