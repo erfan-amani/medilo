@@ -20,7 +20,7 @@ const MainPostsList = () => {
 
   if (status === 'completed' && posts.length > 0) {
     content = (
-      <div className="grid grid-cols-1 lg:grid-cols-3 justify-items-center min-h-full py-8 gap-8 overflow-x-hidden">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center min-h-full py-8 gap-8 overflow-x-hidden">
         {posts.map((p) => (
           <PostItem key={p.id} {...p} />
         ))}
