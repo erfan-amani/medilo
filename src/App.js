@@ -15,6 +15,7 @@ import {
   completedFetching,
 } from './features/posts/posts-slice';
 import Search from './features/search/Search';
+import PostDetail from './features/posts/postDetail/PostDetail';
 
 function App() {
   const dispatch = useDispatch();
@@ -90,8 +91,11 @@ function App() {
           )}
           <Fragment>
             <Nav />
-            <Route path="/posts">
+            <Route path="/posts" exact>
               <Posts />
+            </Route>
+            <Route path="/posts/:postId">
+              <PostDetail />
             </Route>
             <Route path="/search">
               <Search />
