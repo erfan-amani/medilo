@@ -16,21 +16,8 @@ export const db = firebaseApp.firestore();
 export const storage = firebaseApp.storage();
 export const auth = firebaseApp.auth();
 
-export const signinWithGoogle = () => {
-  const provider = new firebase.auth.GoogleAuthProvider();
-  return auth.signInWithPopup(provider);
-};
-
-export const signinWithTwitter = () => {
-  const provider = new firebase.auth.TwitterAuthProvider();
-  return auth.signInWithPopup(provider);
-};
-
-export const signinWithGithub = () => {
-  const provider = new firebase.auth.GithubAuthProvider();
-  return auth.signInWithPopup(provider);
-};
-
 export const signoutRequest = () => {
   return auth.signOut();
 };
+
+export default firebase;

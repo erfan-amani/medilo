@@ -6,24 +6,46 @@ import LoadingSpinner from '../Ui/LoadingSpinner';
 import GithubButton from './AuthButtons/GithubButton';
 import GoogleButton from './AuthButtons/GoogleButton';
 import TwitterButton from './AuthButtons/TwitterButton';
-import { authWithGithub, authWithGoogle, authWithTwitter } from './auth-slice';
+import { siginStarted, siginFailed, siginSucceed } from './auth-slice';
+import firebase, { auth } from './../../firebase';
 import './AuthButtons/AuthButton.css';
 
 const Signin = () => {
   const dispatch = useDispatch();
   const error = useSelector((state) => state.auth.error);
-  const isLoading = useSelector((state) => state.auth.status === 'pending');
+  const status = useSelector((state) => state.auth.status);
 
-  const githubSignHanlder = () => {
-    dispatch(authWithGithub());
+  const githubSignHanlder = async () => {
+    dispatch(siginStarted());
+    try {
+      await auth.signInWithPopup(new firebase.auth.GithubAuthProvider());
+      dispatch(siginSucceed());
+    } catch (error) {
+      console.log(error);
+      dispatch(siginFailed(error.message));
+    }
   };
 
-  const googleSignHandler = () => {
-    dispatch(authWithGoogle());
+  const googleSignHandler = async () => {
+    dispatch(siginStarted());
+    try {
+      await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+      dispatch(siginSucceed());
+    } catch (error) {
+      console.log(error);
+      dispatch(siginFailed(error.message));
+    }
   };
 
-  const twitterSignHandler = () => {
-    dispatch(authWithTwitter());
+  const twitterSignHandler = async () => {
+    dispatch(siginStarted());
+    try {
+      await auth.signInWithPopup(new firebase.auth.TwitterAuthProvider());
+      dispatch(siginSucceed());
+    } catch (error) {
+      console.log(error);
+      dispatch(siginFailed(error.message));
+    }
   };
 
   return (
@@ -35,12 +57,12 @@ const Signin = () => {
         <p className="text-gray-700">enter to your account</p>
       </div>
       <div className="flex flex-col gap-2 w-full">
-        {error && (
+        {status === 'error' && error && (
           <p className="bg-red-100 text-red-500 border-2 border-red-400 py-2 px-4 my-4">
             {error}
           </p>
         )}
-        {!isLoading ? (
+        {status !== 'pending' ? (
           <Fragment>
             <GoogleButton authHandler={googleSignHandler} />
             <TwitterButton authHandler={twitterSignHandler} />
