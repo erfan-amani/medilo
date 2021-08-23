@@ -17,9 +17,17 @@ export const userSignedin = createAsyncThunk(
   'auth/signin',
   async (provider, { rejectWithValue }) => {
     try {
-      const response = await auth.signInWithPopup(provider);
-      console.log(response);
-      // return response;
+      await auth.signInWithPopup(provider);
+
+      // Don't need this part because I set a listener in App.js
+      // const {
+      //   displayName: userName,
+      //   uid: userId,
+      //   email,
+      //   photoURL,
+      // } = response.user;
+
+      // return { userName, userId, email, photoURL };
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -45,6 +53,8 @@ const authSlice = createSlice({
     },
     [userSignedin.fulfilled]: (state, action) => {
       state.status = 'succeed';
+      // Don't need this part because I set a listener in App.js
+      // state.user = action.payload;
       state.error = null;
     },
     [userSignedin.rejected]: (state, action) => {

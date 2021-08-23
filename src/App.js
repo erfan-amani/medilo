@@ -23,23 +23,23 @@ function App() {
 
   // Set auth listener
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
+    const unsubscribe = auth.onAuthStateChanged((fetchedUser) => {
+      if (fetchedUser) {
         // exctract user credential
-        const userName = user.displayName;
-        const email = user.email;
+        const userName = fetchedUser.displayName;
+        const email = fetchedUser.email;
         const photoURL =
-          user.photoURL || 'gs://medilo.appspot.com/default-avatar.jpg';
-        const emailVerified = user.emailVerified;
-        const userId = user.uid;
+          fetchedUser.photoURL ||
+          'https://firebasestorage.googleapis.com/v0/b/medilo.appspot.com/o/default-avatar.jpg?alt=media&token=55dfeb5a-6842-418c-9592-6efee7ee52bc';
+        const userId = fetchedUser.uid;
 
         const userData = {
           userName,
           email,
           photoURL,
-          emailVerified,
           userId,
         };
+
         dispatch(userFound(userData));
       } else {
         dispatch(userNotFound());
