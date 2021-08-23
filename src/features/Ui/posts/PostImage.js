@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import './PostImage.css';
 
 const PostImage = ({ src, fallbackSrc, className }) => {
   const [imageSrc, setImageSrc] = useState(src);

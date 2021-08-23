@@ -80,7 +80,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className="relative h-auto pb-14 md:pb-0 min-h-screen md:h-screen w-screen bg-white overflow-x-hidden">
+      <div className="pb-58px relative h-auto md:pb-0 min-h-screen md:h-screen w-screen bg-white overflow-x-hidden">
         <Switch>
           {!user && (
             <Route path="/signin" exact>

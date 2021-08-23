@@ -24,16 +24,14 @@ const PostDetail = () => {
       // style={{ height: 'calc(100% - 58px)' }}
     >
       <div
-        className="flex flex-col md:flex-row w-px bg-white md:m-auto w-full md:w-5/6 xl:w-2/3 text-gray-800 md:shadow-md"
+        className="flex flex-col md:flex-row bg-white md:m-auto w-full md:w-5/6 xl:w-2/3 text-gray-800 md:shadow-md"
         style={{ height: 'fit-content' }}
       >
-        <div>
-          <PostImage
-            src={postData.image}
-            fallbackSrc={fallbackSrc}
-            className="image-detail w-full object-contain"
-          />
-        </div>
+        <PostImage
+          src={postData.image}
+          fallbackSrc={fallbackSrc}
+          className="image-detail w-full object-contain"
+        />
         <div className="flex flex-col w-full p-4 pb-1 md:pb-4">
           <PostData {...postData} />
           <Comments postId={postId} />

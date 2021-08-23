@@ -4,7 +4,57 @@
 @tailwind utilities;
 
 @layer utilities {
+  /* for App */
+  @media (max-width: 768px) {
+    .pb-58px {
+      padding-bottom: 58px;
+    }
+  }
+  /* for Nav */
+  .navigation {
+    will-change: transform;
+    transform: translateZ(0);
+  }
+  /* for PostDetail */
   .image-detail {
     height: 60vh;
+  }
+  /* for PostItemSmall */
+  /* from here: https://stackoverflow.com/questions/51447317/image-height-same-as-width */
+  .image-container::after {
+    content: '';
+    display: block;
+    padding-bottom: 100%;
+  }
+  /* spinner - LoadingSpinner */
+  .spinner {
+    margin: 0 auto;
+    width: 50px;
+    height: 50px;
+  }
+  .spinner:after {
+    content: ' ';
+    display: block;
+    height: 50px;
+    width: 50px;
+    border: 4px solid;
+    border-radius: 50%;
+    border-color: rgb(66, 27, 138) transparent transparent transparent;
+    animation: spinner 0.8s linear infinite;
+  }
+
+  @keyframes spinner {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  /* for PostImage */
+  .image {
+    background-image: url('./assets/images/loading.gif');
+    background-position: center;
+    background-repeat: no-repeat;
   }
 }

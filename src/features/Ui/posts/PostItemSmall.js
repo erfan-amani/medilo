@@ -1,7 +1,6 @@
 import PostImage from './PostImage';
 import failedImage from '../../../assets/images/failed-post.jpg';
 
-import './PostItemSmall.css';
 import { Link } from 'react-router-dom';
 
 const PostItemSmall = ({ image, postId }) => {
