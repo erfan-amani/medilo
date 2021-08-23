@@ -1,9 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { signoutRequest } from '../../firebase';
+import { auth } from '../../firebase';
 
 export const signout = createAsyncThunk('auth/signout', async () => {
-  await signoutRequest();
+  const response = await auth.signOut();
+  return response;
 });
 
 // create slice
