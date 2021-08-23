@@ -13,7 +13,7 @@ const PostData = ({
   const timeDistance = formatDistanceToNow(new Date(timestamp.seconds * 1000));
 
   return (
-    <Fragment>
+    <div>
       <div className="flex border-b-2 pb-4 border-gray-300 gap-3">
         <Link to={`/user/${userId}`}>
           <picture>
@@ -38,7 +38,7 @@ const PostData = ({
         </Link>
         <span>{caption}</span>
       </div>
-    </Fragment>
+    </div>
   );
 };
 

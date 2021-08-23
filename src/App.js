@@ -80,11 +80,11 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className="relative h-screen w-screen bg-white overflow-x-hidden">
+      <div className="relative h-auto pb-14 md:pb-0 min-h-screen md:h-screen w-screen bg-white overflow-x-hidden">
         <Switch>
           {!user && (
             <Route path="/signin" exact>
-              <div className="flex items-center justify-center w-full h-full bg-gray-200">
+              <div className="absolute flex items-center justify-center w-full h-full bg-gray-200">
                 <Signin />
               </div>
             </Route>

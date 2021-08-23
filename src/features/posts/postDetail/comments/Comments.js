@@ -12,7 +12,8 @@ const Comments = ({ postId }) => {
   };
 
   return (
-    <Fragment>
+    <div className="flex flex-col flex-grow">
+      {/* view comments | comments */}
       {!isCommentsVisible ? (
         <p
           className="pt-2 text-gray-600 cursor-pointer w-max flex-grow"
@@ -23,7 +24,9 @@ const Comments = ({ postId }) => {
       ) : (
         <p className="pt-2 text-gray-600 w-max">Comments</p>
       )}
+      {/* comments list | nothing */}
       {isCommentsVisible && <CommentsList postId={postId} />}
+      {/* comment form | login to write comment */}
       {user ? (
         <CommentForm postId={postId} user={user} />
       ) : (
@@ -31,7 +34,7 @@ const Comments = ({ postId }) => {
           Login to write comment
         </p>
       )}
-    </Fragment>
+    </div>
   );
 };
 
