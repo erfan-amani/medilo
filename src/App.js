@@ -6,7 +6,7 @@ import Signin from './features/auth/Signin';
 import Posts from './features/posts/Posts';
 import Profile from './features/profile/Profile';
 import { auth, db } from './firebase';
-import { userSignedin, userNotFound } from './features/auth/auth-slice';
+import { userFound, userNotFound } from './features/auth/auth-slice';
 import Nav from './features/layout/Nav';
 import NewPost from './features/posts/newPost/NewPost';
 import {
@@ -40,7 +40,7 @@ function App() {
           emailVerified,
           userId,
         };
-        dispatch(userSignedin(userData));
+        dispatch(userFound(userData));
       } else {
         dispatch(userNotFound());
       }

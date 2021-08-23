@@ -6,8 +6,8 @@ import LoadingSpinner from '../Ui/LoadingSpinner';
 import GithubButton from './AuthButtons/GithubButton';
 import GoogleButton from './AuthButtons/GoogleButton';
 import TwitterButton from './AuthButtons/TwitterButton';
-import { siginStarted, siginFailed, siginSucceed } from './auth-slice';
-import firebase, { auth } from './../../firebase';
+import { userSignedin } from './auth-slice';
+import firebase from './../../firebase';
 import './AuthButtons/AuthButton.css';
 
 const Signin = () => {
@@ -16,36 +16,18 @@ const Signin = () => {
   const status = useSelector((state) => state.auth.status);
 
   const githubSignHanlder = async () => {
-    dispatch(siginStarted());
-    try {
-      await auth.signInWithPopup(new firebase.auth.GithubAuthProvider());
-      dispatch(siginSucceed());
-    } catch (error) {
-      console.log(error);
-      dispatch(siginFailed(error.message));
-    }
+    const provider = new firebase.auth.GithubAuthProvider();
+    dispatch(userSignedin(provider));
   };
 
   const googleSignHandler = async () => {
-    dispatch(siginStarted());
-    try {
-      await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-      dispatch(siginSucceed());
-    } catch (error) {
-      console.log(error);
-      dispatch(siginFailed(error.message));
-    }
+    const provider = new firebase.auth.GoogleAuthProvider();
+    dispatch(userSignedin(provider));
   };
 
   const twitterSignHandler = async () => {
-    dispatch(siginStarted());
-    try {
-      await auth.signInWithPopup(new firebase.auth.TwitterAuthProvider());
-      dispatch(siginSucceed());
-    } catch (error) {
-      console.log(error);
-      dispatch(siginFailed(error.message));
-    }
+    const provider = new firebase.auth.TwitterAuthProvider();
+    dispatch(userSignedin(provider));
   };
 
   return (
