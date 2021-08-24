@@ -31,30 +31,35 @@ const Signin = () => {
   };
 
   return (
-    <Card>
-      <div className="text-center">
-        <h2 className="text-2xl md:text-3xl text-gray-800 font-bold">
-          Sign In
-        </h2>
-        <p className="text-gray-700">enter to your account</p>
-      </div>
-      <div className="flex flex-col gap-2 w-full">
-        {status === 'failed' && error && (
-          <p className="bg-red-100 text-red-500 border-2 border-red-400 py-2 px-4 my-4">
-            {error}
-          </p>
-        )}
-        {status !== 'pending' ? (
-          <Fragment>
-            <GoogleButton authHandler={googleSignHandler} />
-            <TwitterButton authHandler={twitterSignHandler} />
-            <GithubButton authHandler={githubSignHanlder} />
-          </Fragment>
-        ) : (
-          <LoadingSpinner />
-        )}
-      </div>
-    </Card>
+    <div
+      className="absolute flex items-center justify-center w-full bg-gray-200"
+      style={{ height: 'calc(100% - 58px)' }}
+    >
+      <Card>
+        <div className="text-center">
+          <h2 className="text-2xl md:text-3xl text-gray-800 font-bold">
+            Sign In
+          </h2>
+          <p className="text-gray-700">enter to your account</p>
+        </div>
+        <div className="flex flex-col gap-2 w-full">
+          {status === 'failed' && error && (
+            <p className="bg-red-100 text-red-500 border-2 border-red-400 py-2 px-4 my-4">
+              {error}
+            </p>
+          )}
+          {status !== 'pending' ? (
+            <Fragment>
+              <GoogleButton authHandler={googleSignHandler} />
+              <TwitterButton authHandler={twitterSignHandler} />
+              <GithubButton authHandler={githubSignHanlder} />
+            </Fragment>
+          ) : (
+            <LoadingSpinner />
+          )}
+        </div>
+      </Card>
+    </div>
   );
 };
 

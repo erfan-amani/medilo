@@ -81,39 +81,35 @@ function App() {
   return (
     <BrowserRouter>
       <div className="pb-58px relative h-auto md:pb-0 min-h-screen md:h-screen w-screen bg-white overflow-x-hidden">
+        <Nav />
         <Switch>
           {!user && (
             <Route path="/signin" exact>
-              <div className="absolute flex items-center justify-center w-full h-full bg-gray-200">
-                <Signin />
-              </div>
+              <Signin />
             </Route>
           )}
-          <Fragment>
-            <Nav />
-            <Route path="/posts" exact>
-              <Posts />
-            </Route>
-            <Route path="/posts/:postId">
-              <PostDetail />
-            </Route>
-            <Route path="/search">
-              <Search />
-            </Route>
-            {user && (
-              <Fragment>
-                <Route path="/profile">
-                  <Profile />
-                </Route>
-                <Route path="/new">
-                  <NewPost />
-                </Route>
-              </Fragment>
-            )}
-            <Route path="*">
-              <Redirect to="/posts" />
-            </Route>
-          </Fragment>
+          <Route path="/posts" exact>
+            <Posts />
+          </Route>
+          <Route path="/posts/:postId">
+            <PostDetail />
+          </Route>
+          <Route path="/search">
+            <Search />
+          </Route>
+          {user && (
+            <Fragment>
+              <Route path="/profile">
+                <Profile />
+              </Route>
+              <Route path="/new">
+                <NewPost />
+              </Route>
+            </Fragment>
+          )}
+          <Route path="*">
+            <Redirect to="/posts" />
+          </Route>
         </Switch>
       </div>
     </BrowserRouter>
