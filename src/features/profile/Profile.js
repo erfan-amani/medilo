@@ -40,7 +40,14 @@ const Profile = () => {
             <UserPostList userId={userId} />
           </Fragment>
         )}
-        {loading && <LoadingSpinner />}
+        {loading && (
+          <div className="py-20 text-center">
+            <LoadingSpinner />
+            <p className="text-purple-800 font-bold text-xl mt-4">
+              Loading user...
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
