@@ -97,6 +97,9 @@ function App() {
           <Route path="/search">
             <Search />
           </Route>
+          <Route path="/profile/:userId">
+            <Profile />
+          </Route>
           {user && (
             <Fragment>
               <Route path="/profile">
