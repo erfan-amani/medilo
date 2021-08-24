@@ -2,8 +2,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { signout } from '../auth/auth-slice';
 
-const ProfileHeader = () => {
-  const user = useSelector((state) => state.auth.user);
+const ProfileHeader = ({ user }) => {
+  const signedInUserId = useSelector((state) => state.auth.user?.userId);
 
   const history = useHistory();
   const dispatch = useDispatch();
@@ -30,15 +30,17 @@ const ProfileHeader = () => {
           <p>No contact email found!</p>
         )}
       </div>
-      <div className="self-center">
-        <button
-          type="button"
-          onClick={signOutHandler}
-          className="py-1.5 px-4 font-semibold bg-blue-500 text-white rounded-lg"
-        >
-          Sign Out
-        </button>
-      </div>
+      {signedInUserId && (
+        <div className="self-center">
+          <button
+            type="button"
+            onClick={signOutHandler}
+            className="py-1.5 px-4 font-semibold bg-blue-500 text-white rounded-lg"
+          >
+            Sign Out
+          </button>
+        </div>
+      )}
     </div>
   );
 };

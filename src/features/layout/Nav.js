@@ -46,7 +46,7 @@ const Nav = () => {
           <NavLink to="/new">
             <PlusIcon className="w-6" />
           </NavLink>
-          <NavLink to="/profile">
+          <NavLink to={`/profile/${user.userId}`}>
             <ProfileButton photoURL={user.photoURL} />
           </NavLink>
         </Fragment>

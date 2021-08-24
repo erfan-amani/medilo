@@ -1,5 +1,4 @@
 import { formatDistanceToNow } from 'date-fns';
-import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
 const PostData = ({
@@ -15,7 +14,7 @@ const PostData = ({
   return (
     <div>
       <div className="flex border-b-2 pb-4 border-gray-300 gap-3">
-        <Link to={`/user/${userId}`}>
+        <Link to={`/profile/${userId}`}>
           <picture>
             <source srcSet={userProfile} className="rounded-full w-10 h-10" />
             <img
@@ -26,7 +25,7 @@ const PostData = ({
           </picture>
         </Link>
         <div className="flex flex-col">
-          <Link to={`/user/${userId}`} className="flex-grow">
+          <Link to={`/profile /${userId}`} className="flex-grow">
             <h3 className="font-semibold leading-4">{userName}</h3>
           </Link>
           <p className="text-sm text-gray-600 leading-4">{timeDistance} ago</p>
