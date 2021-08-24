@@ -101,18 +101,16 @@ function App() {
             <Profile />
           </Route>
           {user && (
-            <Fragment>
-              <Route path="/profile">
-                <Profile />
-              </Route>
-              <Route path="/new">
-                <NewPost />
-              </Route>
-            </Fragment>
+            <Route path="/profile">
+              <Profile />
+            </Route>
           )}
-          <Route path="*">
-            <Redirect to="/posts" />
-          </Route>
+          {user && (
+            <Route path="/new">
+              <NewPost />
+            </Route>
+          )}
+          <Redirect to="/posts" />
         </Switch>
       </div>
     </BrowserRouter>
