@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { auth } from '../../firebase';
+import { auth, db } from '../../firebase';
 
 export const signout = createAsyncThunk(
   'auth/signout',
@@ -17,17 +17,27 @@ export const userSignedin = createAsyncThunk(
   'auth/signin',
   async (provider, { rejectWithValue }) => {
     try {
-      await auth.signInWithPopup(provider);
+      const response = await auth.signInWithPopup(provider);
 
-      // Don't need this part because I set a listener in App.js
-      // const {
-      //   displayName: userName,
-      //   uid: userId,
-      //   email,
-      //   photoURL,
-      // } = response.user;
+      if (response.additionalUserInfo.isNewUser) {
+        // store user into firestore
+        const {
+          displayName: userName,
+          uid: userId,
+          email,
+          photoURL,
+        } = response.user;
 
-      // return { userName, userId, email, photoURL };
+        db.collection('users')
+          .doc(userId)
+          .set({ userName, userId, email, photoURL })
+          .then(() => {
+            console.log('User stored successfuly.');
+          })
+          .catch(() => {
+            console.log('Failed storing user.');
+          });
+      }
     } catch (error) {
       return rejectWithValue(error.message);
     }
