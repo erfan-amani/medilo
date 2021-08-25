@@ -4,7 +4,6 @@ const postsSlice = createSlice({
   name: 'posts',
   initialState: {
     items: [],
-    userPosts: [],
     status: 'idle',
     error: null,
   },
@@ -12,25 +11,11 @@ const postsSlice = createSlice({
     addPost: (state, action) => {
       state.items.push(action.payload);
     },
-    completedFetching: {
-      reducer: (state, action) => {
-        const { items, userPosts } = action.payload;
-
-        state.items = items;
-        state.userPosts = userPosts;
-        state.error = null;
-        state.status = 'completed';
-      },
-      prepare: (data) => {
-        const { items, userId } = data;
-        let userPosts = [];
-
-        if (userId) {
-          userPosts = items.filter((post) => post.userId === userId);
-        }
-
-        return { payload: { items, userPosts } };
-      },
+    completedFetching: (state, action) => {
+      console.log(action.payload);
+      state.items = action.payload;
+      state.error = null;
+      state.status = 'completed';
     },
     startedFetching: (state) => {
       state.status = 'pending';
