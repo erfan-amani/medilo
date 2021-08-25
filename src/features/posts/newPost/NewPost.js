@@ -1,12 +1,13 @@
-import { Fragment, useState } from 'react';
-import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { useState } from 'react';
+import { Form, Formik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 
-import Card from '../../Ui/Card';
 import LoadingSpinner from '../../Ui/LoadingSpinner';
 import { storage, db, serverTimestamp } from '../../../firebase';
 import { addPost } from '../posts-slice';
+import FileField from '../../Ui/FormFields/FileField';
+import TextAreaField from '../../Ui/FormFields/TextAreaField';
 
 const SUPPORTED_SIZE = 1024 * 2024;
 const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'];
@@ -34,19 +35,20 @@ const NewPost = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const submitHandler = (values) => {
-    setLoading(true);
+  const submitHandler = (values, { resetForm }) => {
+    console.log('hello');
+    console.log(values);
 
+    setLoading(true);
     const storageRef = storage.ref();
     const uploadTask = storageRef.child(values.image.name).put(values.image);
-
     uploadTask.on(
       'state_changed',
       (snapshot) => {
         const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         setProgress(progress);
-        console.log(progress);
+        console.log(`Uploading ${progress}%`);
       },
       (error) => {
         console.log(error);
@@ -56,7 +58,6 @@ const NewPost = () => {
       () => {
         uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
           setProgress(0);
-
           // send to db and add to store
           const postData = {
             caption: values.caption,
@@ -65,13 +66,13 @@ const NewPost = () => {
             userProfile: user.photoURL,
             userId: user.userId,
           };
-
           db.collection('posts')
             .add({ ...postData, timestamp: serverTimestamp() })
             .then((postRef) => {
               postData.id = postRef.id;
-
               dispatch(addPost(postData));
+              console.log(resetForm);
+              resetForm({ caption: '', image: undefined });
               setLoading(false);
             })
             .catch((error) => {
@@ -84,17 +85,10 @@ const NewPost = () => {
     );
   };
 
-  const imageChangeHandler = (event, setFieldValue) => {
-    setFieldValue('image', event.currentTarget.files[0]);
-  };
-
   return (
-    <div
-      className="flex items-center justify-center bg-gray-300"
-      style={{ height: 'calc(100% - 58px)' }}
-    >
-      <Card>
-        <h2 className="font-bold text-xl md:text-2xl text-gray-800 mb-6">
+    <div className="flex bg-white-300" style={{ height: 'calc(100vh - 58px)' }}>
+      <div className="flex flex-col items-center m-auto bg-white gap-4 w-11/12 sm:w-3/5 md:w-1/2 xl:w-1/3 rounded-sm">
+        <h2 className="font-bold text-xl md:text-2xl text-gray-800 mb-2">
           New Post
         </h2>
         <Formik
@@ -102,74 +96,29 @@ const NewPost = () => {
           onSubmit={submitHandler}
           initialValues={{ caption: '', image: undefined }}
         >
-          {(formik) => {
-            return (
-              <Fragment>
-                {error && (
-                  <p className="bg-red-100 text-red-600 border-2 border-red-400 py-2 px-4">
-                    {error}
-                  </p>
-                )}
-                <Form className="w-full space-y-6 text-gray-800">
-                  <div className="flex flex-col">
-                    <label htmlFor="caption" className="block mb-2">
-                      Caption
-                    </label>
-                    <Field
-                      name="caption"
-                      id="caption"
-                      as="textarea"
-                      label="Caption"
-                      rows="5"
-                      className="border-2 focus:outline-none px-2 py-1"
-                    ></Field>
-                    <ErrorMessage
-                      name="caption"
-                      render={(msg) => (
-                        <p className="text-sm text-red-500">{msg}</p>
-                      )}
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="image" className="block mb-2">
-                      Choose post image
-                    </label>
-                    <input
-                      id="image"
-                      type="file"
-                      accept="image/jpg, image/jpeg, image/gif, image/png"
-                      onChange={(e) =>
-                        imageChangeHandler(e, formik.setFieldValue)
-                      }
-                    />
-                    {formik.errors.image && formik.touched.image && (
-                      <p className="text-sm text-red-500">
-                        {formik.errors.image}
-                      </p>
-                    )}
-                    <div className="bg-indigo-200 rounded-full h-4 mt-4">
-                      <div
-                        className="bg-green-600 h-full rounded-full"
-                        style={{ width: `${progress}%` }}
-                      ></div>
-                    </div>
-                  </div>
-                  {loading ? (
-                    <LoadingSpinner />
-                  ) : (
-                    <button
-                      type="submit"
-                      className="w-full py-2 text-white bg-indigo-600 rounded-sm font-medium"
-                    >
-                      Send
-                    </button>
-                  )}
-                </Form>
-              </Fragment>
-            );
-          }}
+          <Form>
+            <fieldset disabled={loading} className="space-y-4">
+              <TextAreaField label="Caption" name="caption" />
+              <FileField
+                label="Choose an image"
+                name="image"
+                type="file"
+                uploadProgress={progress}
+              />
+              {loading ? (
+                <LoadingSpinner />
+              ) : (
+                <button
+                  type="submit"
+                  className="w-full py-2 text-white bg-indigo-600 rounded-sm font-semibold"
+                >
+                  Post
+                </button>
+              )}
+            </fieldset>
+          </Form>
         </Formik>
-      </Card>
+      </div>
     </div>
   );
 };
