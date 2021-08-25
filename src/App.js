@@ -1,6 +1,12 @@
-import { Fragment, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Redirect,
+  Route,
+  Switch,
+  useHistory,
+} from 'react-router-dom';
 
 import Signin from './features/auth/Signin';
 import Posts from './features/posts/Posts';
@@ -66,9 +72,8 @@ function App() {
               timestamp: { ...data.timestamp },
             };
           });
-          const userId = user ? user.userId : null;
 
-          dispatch(completedFetching({ items: posts, userId }));
+          dispatch(completedFetching(posts));
         },
         (error) => {
           dispatch(failedFetching(error.message));
@@ -76,7 +81,7 @@ function App() {
       );
 
     return unsubscribe;
-  }, [dispatch, user]);
+  }, [dispatch]);
 
   return (
     <BrowserRouter>
