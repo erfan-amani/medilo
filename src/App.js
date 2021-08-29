@@ -22,6 +22,7 @@ import {
 } from './features/posts/posts-slice';
 import Search from './features/search/Search';
 import PostDetail from './features/posts/postDetail/PostDetail';
+import ProfileSetting from './features/profile/ProfileSetting';
 
 function App() {
   const dispatch = useDispatch();
@@ -112,6 +113,11 @@ function App() {
           </Route>
           <Route path="/profile/:userId">
             <Profile />
+            {user && (
+              <Route path="/profile/:userId/setting">
+                <ProfileSetting />
+              </Route>
+            )}
           </Route>
           {user && (
             <Route path="/profile">
