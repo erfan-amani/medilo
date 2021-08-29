@@ -63,15 +63,23 @@ function App() {
       .collection('posts')
       .orderBy('timestamp', 'desc')
       .onSnapshot(
-        (snapshot) => {
-          const posts = snapshot.docs.map((doc) => {
-            const data = doc.data();
-            return {
-              ...data,
-              id: doc.id,
-              timestamp: { ...data.timestamp },
-            };
-          });
+        async (snapshot) => {
+          const posts = await Promise.all(
+            snapshot.docs.map(async (doc) => {
+              const data = doc.data();
+
+              const user = await data.user.get();
+
+              const formattedData = {
+                ...data,
+                id: doc.id,
+                timestamp: { ...data.timestamp },
+                user: user.data(),
+              };
+
+              return formattedData;
+            })
+          );
 
           dispatch(completedFetching(posts));
         },
