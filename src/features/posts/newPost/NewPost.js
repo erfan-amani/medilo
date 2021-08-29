@@ -62,9 +62,8 @@ const NewPost = () => {
           const postData = {
             caption: values.caption,
             image: downloadURL,
-            userName: user.userName,
-            userProfile: user.photoURL,
             userId: user.userId,
+            user: db.doc(`/users/${user.userId}`),
           };
           db.collection('posts')
             .add({ ...postData, timestamp: serverTimestamp() })

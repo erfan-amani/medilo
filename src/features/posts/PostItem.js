@@ -8,16 +8,8 @@ import failedImage from '../../assets/images/failed-post.jpg';
 import PostImage from '../Ui/posts/PostImage';
 import { Link } from 'react-router-dom';
 
-const PostItem = ({
-  id,
-  caption,
-  userName,
-  userProfile,
-  image,
-  timestamp,
-  userId,
-}) => {
-  const user = useSelector((state) => state.auth.user);
+const PostItem = ({ id, caption, user, image, timestamp, userId }) => {
+  const userLogedin = !!useSelector((state) => state.auth.user);
 
   const timeDistance = formatDistanceToNow(new Date(timestamp.seconds * 1000));
 
@@ -34,21 +26,21 @@ const PostItem = ({
       <div className="flex items-center gap-4 py-2 px-4 border-l-2 border-r-2 border-b-2">
         <Link to={`/profile/${userId}`}>
           <picture>
-            <source srcSet={userProfile} className="rounded-full w-10 h-10" />
+            <source srcSet={user.photoURL} className="rounded-full w-10 h-10" />
             <img
               src="https://firebasestorage.googleapis.com/v0/b/medilo.appspot.com/o/default-avatar.jpg?alt=media&token=55dfeb5a-6842-418c-9592-6efee7ee52bc"
-              alt={userName + 'profile'}
+              alt={user.userName + 'profile'}
               className="rounded-full w-10 h-10"
             />
           </picture>
         </Link>
         <div className="flex flex-col flex-grow text-gray-800">
           <Link to={`/profile/${userId}`} className="font-medium leading-4">
-            {userName}
+            {user.userName}
           </Link>
           <p className="text-sm text-gray-600 leading-4">{timeDistance} ago</p>
         </div>
-        {user && (
+        {userLogedin && (
           <div className="flex gap-3">
             <CommentIcon />
             <LikeIcon />
