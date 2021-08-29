@@ -52,7 +52,7 @@ const FileField = ({ label, uploadProgress, ...props }) => {
           {/* CHOOSE FILE BUTTON OR NAME OF SELECTED FILE */}
           <div className="relative flex-grow-0 w-full text-center bg-gray-100 rounded-b-xl py-1.5 font-semibold text-purple-700 border-t-2 border-purple-500">
             <div
-              className="absolute top-0 left-0 bg-purple-600 h-full"
+              className="absolute top-0 left-0 bg-purple-600 h-full transition-width duration-300"
               style={{ width: `${uploadProgress}%` }}
             ></div>
             {field.value ? field.value.name : 'Choose a file'}
