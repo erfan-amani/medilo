@@ -1,12 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  BrowserRouter,
-  Redirect,
-  Route,
-  Switch,
-  useHistory,
-} from 'react-router-dom';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
 import Signin from './features/auth/Signin';
 import Posts from './features/posts/Posts';
@@ -20,6 +14,11 @@ import {
   startedFetching,
   completedFetching,
 } from './features/posts/posts-slice';
+import {
+  startedFetchingUsers,
+  completedFetchingUsers,
+  failedFetchingUsers,
+} from './features/users/user-slice';
 import Search from './features/search/Search';
 import PostDetail from './features/posts/postDetail/PostDetail';
 import ProfileSetting from './features/profile/ProfileSetting';
@@ -88,6 +87,25 @@ function App() {
           dispatch(failedFetching(error.message));
         }
       );
+
+    return unsubscribe;
+  }, [dispatch]);
+
+  useEffect(() => {
+    const unsubscribe = db.collection('users').onSnapshot(
+      (snapshot) => {
+        dispatch(startedFetchingUsers());
+
+        const usersList = snapshot.docs.map((user) => {
+          return { ...user.data() };
+        });
+
+        dispatch(completedFetchingUsers(usersList));
+      },
+      (error) => {
+        dispatch(failedFetchingUsers());
+      }
+    );
 
     return unsubscribe;
   }, [dispatch]);
