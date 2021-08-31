@@ -11,17 +11,17 @@ const postsSlice = createSlice({
     addPost: (state, action) => {
       state.items.push(action.payload);
     },
-    completedFetching: (state, action) => {
+    completedFetchingPosts: (state, action) => {
       console.log(action.payload);
       state.items = action.payload;
       state.error = null;
       state.status = 'completed';
     },
-    startedFetching: (state) => {
+    startedFetchingPosts: (state) => {
       state.status = 'pending';
       state.error = null;
     },
-    failedFetching: (state, action) => {
+    failedFetchingPosts: (state, action) => {
       state.status = 'error';
       state.error = action.payload;
     },
@@ -32,7 +32,7 @@ export default postsSlice.reducer;
 
 export const {
   addPost,
-  failedFetching,
-  startedFetching,
-  completedFetching,
+  failedFetchingPosts,
+  startedFetchingPosts,
+  completedFetchingPosts,
 } = postsSlice.actions;

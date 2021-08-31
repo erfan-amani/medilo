@@ -10,9 +10,9 @@ import { userFound, userNotFound } from './features/auth/auth-slice';
 import Nav from './features/layout/Nav';
 import NewPost from './features/posts/newPost/NewPost';
 import {
-  failedFetching,
-  startedFetching,
-  completedFetching,
+  failedFetchingPosts,
+  startedFetchingPosts,
+  completedFetchingPosts,
 } from './features/posts/posts-slice';
 import {
   startedFetchingUsers,
@@ -57,7 +57,7 @@ function App() {
 
   // Set db listener
   useEffect(() => {
-    dispatch(startedFetching());
+    dispatch(startedFetchingPosts());
 
     const unsubscribe = db
       .collection('posts')
@@ -81,10 +81,10 @@ function App() {
             })
           );
 
-          dispatch(completedFetching(posts));
+          dispatch(completedFetchingPosts(posts));
         },
         (error) => {
-          dispatch(failedFetching(error.message));
+          dispatch(failedFetchingPosts(error.message));
         }
       );
 
