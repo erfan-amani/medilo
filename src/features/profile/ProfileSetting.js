@@ -17,7 +17,8 @@ const ProfileSetting = () => {
       <div className="w-full h-full flex flex-col gap-8">
         <div className="flex gap-4">
           <NavLink
-            to={`/profile/${userId}/setting/general`}
+            to={`/profile/${userId}/setting`}
+            exact
             className="p-1"
             activeClassName="border-b-2 border-gray-300"
           >
@@ -39,7 +40,7 @@ const ProfileSetting = () => {
           </NavLink>
         </div>
         <div>
-          <Route path="/profile/:userId/setting/general">
+          <Route path="/profile/:userId/setting" exact>
             <GeneralSetting />
           </Route>
           <Route path="/profile/:userId/setting/profilePhoto">
