@@ -72,6 +72,9 @@ const authSlice = createSlice({
     userNotFound: (state) => {
       state.user = null;
     },
+    updateUser: (state, action) => {
+      state.user = action.payload;
+    },
   },
   extraReducers: {
     [userSignedin.pending]: (state) => {
@@ -94,7 +97,7 @@ const authSlice = createSlice({
 export default authSlice.reducer;
 
 // export actions from reducer
-export const { userFound, userNotFound } = authSlice.actions;
+export const { userFound, userNotFound, updateUser } = authSlice.actions;
 
 export const selectUserById = (state, userId) =>
   state.users.find((user) => user.userId === userId);

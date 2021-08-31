@@ -6,7 +6,11 @@ import Signin from './features/auth/Signin';
 import Posts from './features/posts/Posts';
 import Profile from './features/profile/Profile';
 import { auth, db } from './firebase';
-import { userFound, userNotFound } from './features/auth/auth-slice';
+import {
+  updateUser,
+  userFound,
+  userNotFound,
+} from './features/auth/auth-slice';
 import Nav from './features/layout/Nav';
 import NewPost from './features/posts/newPost/NewPost';
 import {
@@ -100,6 +104,13 @@ function App() {
           return { ...user.data() };
         });
 
+        if (user) {
+          const currentUserData = usersList.find(
+            (u) => u.userId === user.userId
+          );
+          dispatch(updateUser(currentUserData));
+        }
+
         dispatch(completedFetchingUsers(usersList));
       },
       (error) => {
@@ -108,7 +119,7 @@ function App() {
     );
 
     return unsubscribe;
-  }, [dispatch]);
+  }, [dispatch, user]);
 
   return (
     <BrowserRouter>
