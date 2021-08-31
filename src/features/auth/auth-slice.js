@@ -44,6 +44,22 @@ export const userSignedin = createAsyncThunk(
   }
 );
 
+export const deleteAccount = createAsyncThunk(
+  'auth/deleteAccount',
+  async (_, { rejectWithValue }) => {
+    try {
+      const currentUser = auth.currentUser;
+      // delete from firestore list
+      await db.collection('users').doc(currentUser.uid).delete();
+      // delete from firebase auth
+      await currentUser.delete();
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 // create slice
 const authSlice = createSlice({
   name: 'auth',
@@ -79,3 +95,6 @@ export default authSlice.reducer;
 
 // export actions from reducer
 export const { userFound, userNotFound } = authSlice.actions;
+
+export const selectUserById = (state, userId) =>
+  state.users.find((user) => user.userId === userId);
