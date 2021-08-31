@@ -1,17 +1,10 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { signout } from '../auth/auth-slice';
+import { useSelector } from 'react-redux';
+import { Link, useLocation } from 'react-router-dom';
+import SettingIcon from '../Ui/Icons/SettingIcon';
 
 const ProfileHeader = ({ user }) => {
   const signedInUserId = useSelector((state) => state.auth.user?.userId);
-
-  const history = useHistory();
-  const dispatch = useDispatch();
-
-  const signOutHandler = () => {
-    dispatch(signout());
-    history.push('/posts');
-  };
+  const location = useLocation();
 
   return (
     <div className="flex gap-4 border-b-2 px-4 md:px-0 py-3 md:pb-8">
@@ -31,15 +24,9 @@ const ProfileHeader = ({ user }) => {
         )}
       </div>
       {signedInUserId && (
-        <div className="self-center">
-          <button
-            type="button"
-            onClick={signOutHandler}
-            className="py-1.5 px-4 font-semibold bg-blue-500 text-white rounded-lg"
-          >
-            Sign Out
-          </button>
-        </div>
+        <Link to={`${location.pathname}/setting`}>
+          <SettingIcon />
+        </Link>
       )}
     </div>
   );
