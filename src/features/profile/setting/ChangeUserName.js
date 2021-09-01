@@ -1,9 +1,8 @@
 import { Formik, Form } from 'formik';
 import { useDispatch } from 'react-redux';
 import * as Yup from 'yup';
-import { auth } from '../../../firebase';
-import { updateUsername } from '../../auth/auth-slice';
 import TextField from '../../Ui/FormFields/TextField';
+import { updateUsername } from '../../users/user-slice';
 
 const validationSchema = Yup.object({
   username: Yup.string().min(5, 'At least 5 characters!').required('Required!'),
@@ -14,8 +13,6 @@ const ChangeUserName = () => {
 
   const submitHandler = (values) => {
     dispatch(updateUsername(values.username));
-
-    console.log(values);
   };
 
   return (

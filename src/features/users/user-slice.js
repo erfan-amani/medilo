@@ -1,4 +1,22 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { auth, db } from '../../firebase';
+
+export const updateUsername = createAsyncThunk(
+  'users/updateUsername',
+  async (newUsername, { rejectWithValue }) => {
+    try {
+      const currentUser = auth.currentUser;
+      await db
+        .collection('users')
+        .doc(currentUser.uid)
+        .update({ userName: newUsername });
+      await currentUser.updateProfile({ displayName: newUsername });
+      console.log(currentUser.displayName);
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
 const usersSlice = createSlice({
   name: 'users',
