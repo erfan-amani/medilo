@@ -8,7 +8,10 @@ import failedImage from '../../assets/images/failed-post.jpg';
 import PostImage from '../Ui/posts/PostImage';
 import { Link } from 'react-router-dom';
 
-const PostItem = ({ id, caption, user, image, timestamp, userId }) => {
+const PostItem = ({ id, image, timestamp, userId }) => {
+  const user = useSelector((state) =>
+    state.users.list.find((u) => u.userId === userId)
+  );
   const userLogedin = !!useSelector((state) => state.auth.user);
 
   const timeDistance = formatDistanceToNow(new Date(timestamp.seconds * 1000));

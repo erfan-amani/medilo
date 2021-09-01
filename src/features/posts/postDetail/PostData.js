@@ -1,8 +1,12 @@
 import { formatDistanceToNow } from 'date-fns';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-const PostData = ({ caption, user, id, timestamp }) => {
+const PostData = ({ caption, userId, id, timestamp }) => {
   const timeDistance = formatDistanceToNow(new Date(timestamp.seconds * 1000));
+  const user = useSelector((state) =>
+    state.users.list.find((u) => u.userId === userId)
+  );
 
   return (
     <div>
@@ -18,7 +22,7 @@ const PostData = ({ caption, user, id, timestamp }) => {
           </picture>
         </Link>
         <div className="flex flex-col">
-          <Link to={`/profile /${user.userId}`} className="flex-grow">
+          <Link to={`/profile/${user.userId}`} className="flex-grow">
             <h3 className="font-semibold leading-4">{user.userName}</h3>
           </Link>
           <p className="text-sm text-gray-600 leading-4">{timeDistance} ago</p>
@@ -26,7 +30,7 @@ const PostData = ({ caption, user, id, timestamp }) => {
       </div>
       <div className="py-4 mb-4">
         <Link
-          to={`/user/${user.userId}`}
+          to={`/profile/${user.userId}`}
           className="font-semibold text-md pr-2"
         >
           {user.userName}
