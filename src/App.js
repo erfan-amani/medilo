@@ -29,7 +29,7 @@ import ProfileSetting from './features/profile/ProfileSetting';
 
 function App() {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth.user);
+  const userId = useSelector((state) => state.auth.user)?.userId;
 
   // Set auth listener
   useEffect(() => {
@@ -104,10 +104,8 @@ function App() {
           return { ...user.data() };
         });
 
-        if (user) {
-          const currentUserData = usersList.find(
-            (u) => u.userId === user.userId
-          );
+        if (userId) {
+          const currentUserData = usersList.find((u) => u.userId === userId);
           dispatch(updateUser(currentUserData));
         }
 
@@ -119,14 +117,14 @@ function App() {
     );
 
     return unsubscribe;
-  }, [dispatch, user]);
+  }, [dispatch, userId]);
 
   return (
     <BrowserRouter>
       <div className="pb-58px relative h-auto md:pb-0 min-h-screen md:h-screen w-screen bg-white overflow-x-hidden">
         <Nav />
         <Switch>
-          {!user && (
+          {!userId && (
             <Route path="/signin" exact>
               <Signin />
             </Route>
@@ -142,18 +140,18 @@ function App() {
           </Route>
           <Route path="/profile/:userId">
             <Profile />
-            {user && (
+            {userId && (
               <Route path="/profile/:userId/setting">
                 <ProfileSetting />
               </Route>
             )}
           </Route>
-          {user && (
+          {userId && (
             <Route path="/profile">
               <Profile />
             </Route>
           )}
-          {user && (
+          {userId && (
             <Route path="/new">
               <NewPost />
             </Route>
