@@ -16,6 +16,11 @@ const PostItem = ({ id, image, timestamp, userId }) => {
 
   const timeDistance = formatDistanceToNow(new Date(timestamp.seconds * 1000));
 
+  if (!user) {
+    console.log('user not found');
+    return null;
+  }
+
   return (
     <div className="w-full w-max">
       <Link to={`/posts/${id}`} className="cursor-pointer">
