@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Form, Formik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
@@ -8,6 +8,7 @@ import { storage, db, serverTimestamp } from '../../../firebase';
 import { addPost } from '../posts-slice';
 import FileField from '../../Ui/FormFields/FileField';
 import TextAreaField from '../../Ui/FormFields/TextAreaField';
+import { useHistory } from 'react-router-dom';
 
 const SUPPORTED_SIZE = 1024 * 2024;
 const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'];
@@ -31,6 +32,7 @@ const validationSchema = Yup.object({
 const NewPost = () => {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
+  const history = useHistory();
   const [progress, setProgress] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -54,7 +56,7 @@ const NewPost = () => {
       },
       () => {
         uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-          setProgress(0);
+          // setProgress(0);
           // send to db and add to store
           const postData = {
             caption: values.caption,
@@ -78,6 +80,14 @@ const NewPost = () => {
       }
     );
   };
+
+  useEffect(() => {
+    if (!loading && progress === 100) {
+      setTimeout(() => {
+        history.replace('/posts');
+      }, 500);
+    }
+  }, [loading, progress, history]);
 
   return (
     <div className="flex bg-white-300" style={{ height: 'calc(100vh - 58px)' }}>
