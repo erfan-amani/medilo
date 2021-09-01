@@ -72,13 +72,10 @@ function App() {
             snapshot.docs.map(async (doc) => {
               const data = doc.data();
 
-              const user = await data.user.get();
-
               const formattedData = {
                 ...data,
                 id: doc.id,
                 timestamp: { ...data.timestamp },
-                user: user.data(),
               };
 
               return formattedData;

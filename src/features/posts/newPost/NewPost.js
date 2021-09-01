@@ -36,9 +36,6 @@ const NewPost = () => {
   const [error, setError] = useState('');
 
   const submitHandler = (values, { resetForm }) => {
-    console.log('hello');
-    console.log(values);
-
     setLoading(true);
     const storageRef = storage.ref();
     const uploadTask = storageRef.child(values.image.name).put(values.image);
@@ -63,15 +60,13 @@ const NewPost = () => {
             caption: values.caption,
             image: downloadURL,
             userId: user.userId,
-            user: db.doc(`/users/${user.userId}`),
           };
           db.collection('posts')
             .add({ ...postData, timestamp: serverTimestamp() })
             .then((postRef) => {
               postData.id = postRef.id;
               dispatch(addPost(postData));
-              console.log(resetForm);
-              resetForm({ caption: '', image: undefined });
+              resetForm();
               setLoading(false);
             })
             .catch((error) => {
