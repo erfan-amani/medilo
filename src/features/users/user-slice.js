@@ -11,7 +11,22 @@ export const updateUsername = createAsyncThunk(
         .doc(currentUser.uid)
         .update({ userName: newUsername });
       await currentUser.updateProfile({ displayName: newUsername });
-      console.log(currentUser.displayName);
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const updateProfilePhoto = createAsyncThunk(
+  'users/updateProfilePhoto',
+  async (newPhoto, { rejectWithValue }) => {
+    try {
+      const currentUser = auth.currentUser;
+      await db
+        .collection('users')
+        .doc(currentUser.uid)
+        .update({ photoURL: newPhoto });
+      await currentUser.updateProfile({ photoURL: newPhoto });
     } catch (error) {
       return rejectWithValue(error.message);
     }
