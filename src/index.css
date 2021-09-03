@@ -18,6 +18,7 @@
   /* for PostDetail */
   .image-detail {
     height: 60vh;
+    width: 60vh;
   }
   /* for PostItemSmall */
   /* from here: https://stackoverflow.com/questions/51447317/image-height-same-as-width */
