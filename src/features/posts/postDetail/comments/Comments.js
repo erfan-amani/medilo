@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import CommentForm from './CommentForm';
 import CommentsList from './CommentsList';
@@ -28,7 +28,7 @@ const Comments = ({ postId }) => {
       {isCommentsVisible && <CommentsList postId={postId} />}
       {/* comment form | login to write comment */}
       {user ? (
-        <CommentForm postId={postId} user={user} />
+        <CommentForm postId={postId} userId={user.userId} />
       ) : (
         <p className="flex border-t-2 items-center py-1">
           Login to write comment

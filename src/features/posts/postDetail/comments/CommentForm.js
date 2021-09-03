@@ -2,7 +2,7 @@ import { nanoid } from '@reduxjs/toolkit';
 import { useState } from 'react';
 import { db, serverTimestamp } from '../../../../firebase';
 
-const CommentForm = ({ postId, user }) => {
+const CommentForm = ({ postId, userId }) => {
   const [enteredComment, setEnteredComment] = useState('');
 
   const commentChangeHandler = (event) => {
@@ -14,8 +14,7 @@ const CommentForm = ({ postId, user }) => {
 
     const newComment = {
       text: enteredComment,
-      userId: user.userId,
-      userName: user.userName,
+      userId: userId,
       timestamp: serverTimestamp(),
     };
 
